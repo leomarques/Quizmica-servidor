@@ -31,6 +31,7 @@ public class ConnectionsHandler extends Thread {
 				clientListener.start();
 				clientSender.start();
 				serverDispatcher.addClient(clientInfo);
+				
 				System.out.println("User " + clientInfo + " logged in, "
 						+ serverDispatcher.getClientCount()
 						+ " user(s) online.");

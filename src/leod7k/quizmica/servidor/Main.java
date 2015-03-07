@@ -1,5 +1,9 @@
 package leod7k.quizmica.servidor;
 
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.net.ServerSocket;
+
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 
@@ -16,7 +20,14 @@ public class Main {
 		JButton btnComecar = serverGUI.getBtnComecar();
 		JButton btnTerminar = serverGUI.getBtnTerminar();
 
-		btnAbrir.addActionListener(new BtnAbrirListener(textArea));
+		ServerSocket serverSocket = null;
+		ServerDispatcher serverDispatcher = null;
+		ConnectionsHandler connectionsHandler = null;
+
+		btnAbrir.addActionListener(new BtnAbrirListener(serverSocket,
+				serverDispatcher, connectionsHandler, textArea));
+
+		serverGUI.addWindowListener(new WindowCLoser());
 
 		/*
 		 * Scanner scanner = new Scanner(System.in); while (true) { String
@@ -38,6 +49,51 @@ public class Main {
 		 * 
 		 * serverDispatcher.serverMessage(message); }
 		 */
+	}
+
+}
+
+class WindowCLoser implements WindowListener {
+
+	@Override
+	public void windowActivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void windowClosed(WindowEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void windowClosing(WindowEvent e) {
+		//close socket
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void windowOpened(WindowEvent e) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

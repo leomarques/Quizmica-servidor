@@ -40,10 +40,6 @@ public class ServerDispatcher extends Thread {
 	 */
 	public synchronized void dispatchMessage(ClientInfo aClientInfo,
 			String aMessage) {
-		if (aMessage.equals("/u")) {
-			serverMessage(getClientCount() + " users online.");
-			return;
-		}
 		aMessage = aClientInfo + " : " + aMessage;
 		mMessageQueue.add(aMessage);
 		notify();

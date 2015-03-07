@@ -72,6 +72,7 @@ public class ClientSender extends Thread {
 			}
 		} catch (Exception e) {
 			// Commuication problem
+			e.printStackTrace();
 		}
 
 		// Communication is broken. Interrupt both listener and sender threads
