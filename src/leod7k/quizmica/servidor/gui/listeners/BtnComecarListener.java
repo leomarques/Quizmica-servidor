@@ -22,7 +22,7 @@ public class BtnComecarListener implements ActionListener {
 		if (con.getServerSocket() == null) {
 			return;
 		}
-		textArea.append("abri");
+		textArea.append("abri\n");
 		con.getServerDispatcher().serverMessage("abri");
 	}
 
