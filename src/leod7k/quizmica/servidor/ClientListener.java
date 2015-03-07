@@ -5,18 +5,22 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 
+import javax.swing.JTextArea;
+
 public class ClientListener extends Thread {
 
 	private ServerDispatcher mServerDispatcher;
 	private ClientInfo mClientInfo;
 	private BufferedReader mIn;
+	private JTextArea textArea;
 
 	public ClientListener(ClientInfo aClientInfo,
-			ServerDispatcher aServerDispatcher) throws IOException {
+			ServerDispatcher aServerDispatcher, JTextArea paramTextArea) throws IOException {
 		mClientInfo = aClientInfo;
 		mServerDispatcher = aServerDispatcher;
 		Socket socket = aClientInfo.mSocket;
 		mIn = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+		textArea = paramTextArea;
 	}
 
 	/**
@@ -29,8 +33,8 @@ public class ClientListener extends Thread {
 				String message = mIn.readLine();
 				if (message == null)
 					break;
-				
-				System.out.println(message);
+
+				textArea.append(message);
 				mClientInfo.mClientSender.sendMessage("recebi");
 			}
 		} catch (IOException ioex) {

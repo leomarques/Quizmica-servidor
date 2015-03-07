@@ -13,7 +13,7 @@ import leod7k.quizmica.servidor.ServerDispatcher;
 
 public class BtnAbrirListener implements ActionListener {
 	public static final int LISTENING_PORT = 2002;
-	
+
 	private JTextArea textArea;
 	private Connections con;
 
@@ -28,28 +28,28 @@ public class BtnAbrirListener implements ActionListener {
 		ServerSocket serverSocket = null;
 		try {
 			serverSocket = new ServerSocket(LISTENING_PORT);
-			
+
 			textArea.append("Server started on port " + LISTENING_PORT + "\n");
 		} catch (IOException se) {
 			se.printStackTrace();
-			
-			textArea.append("Can not start listening on port "
-					+ LISTENING_PORT + "\n");
+
+			textArea.append("Can not start listening on port " + LISTENING_PORT
+					+ "\n");
 			return;
 		}
-		
+
 		con.setServerSocket(serverSocket);
 
 		// Start ServerDispatcher thread
 		ServerDispatcher serverDispatcher = new ServerDispatcher();
 		serverDispatcher.start();
-		
+
 		con.setServerDispatcher(serverDispatcher);
 
 		ConnectionsHandler connectionsHandler = new ConnectionsHandler(
-				serverSocket, serverDispatcher);
+				serverSocket, serverDispatcher, textArea);
 		connectionsHandler.start();
-		
+
 		con.setConnectionsHandler(connectionsHandler);
 	}
 

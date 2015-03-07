@@ -4,15 +4,19 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import javax.swing.JTextArea;
+
 public class ConnectionsHandler extends Thread {
 
 	private ServerSocket serverSocket;
 	private ServerDispatcher serverDispatcher;
+	private JTextArea textArea ;
 
 	public ConnectionsHandler(ServerSocket paramSocket,
-			ServerDispatcher paramServerDispatcher) {
+			ServerDispatcher paramServerDispatcher, JTextArea paramTextArea) {
 		serverSocket = paramSocket;
 		serverDispatcher = paramServerDispatcher;
+		textArea = paramTextArea;
 	}
 
 	public void run() {
@@ -23,7 +27,7 @@ public class ConnectionsHandler extends Thread {
 				ClientInfo clientInfo = new ClientInfo();
 				clientInfo.mSocket = socket;
 				ClientListener clientListener = new ClientListener(clientInfo,
-						serverDispatcher);
+						serverDispatcher, textArea);
 				ClientSender clientSender = new ClientSender(clientInfo,
 						serverDispatcher);
 				clientInfo.mClientListener = clientListener;
@@ -31,12 +35,12 @@ public class ConnectionsHandler extends Thread {
 				clientListener.start();
 				clientSender.start();
 				serverDispatcher.addClient(clientInfo);
-				
-				System.out.println("User " + clientInfo + " logged in, "
+
+				textArea.append("User " + clientInfo + " logged in, "
 						+ serverDispatcher.getClientCount()
 						+ " user(s) online.");
 			} catch (IOException ioe) {
-				//ioe.printStackTrace();
+				// ioe.printStackTrace();
 				System.out.println("socket closed exception");
 			}
 		}
