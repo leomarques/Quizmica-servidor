@@ -2,13 +2,13 @@ package leod7k.quizmica.servidor;
 
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.net.ServerSocket;
 
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 
 import leod7k.quizmica.servidor.gui.ServerGUI;
 import leod7k.quizmica.servidor.gui.listeners.BtnAbrirListener;
+import leod7k.quizmica.servidor.gui.listeners.BtnTerminarListener;
 
 public class Main {
 
@@ -17,43 +17,28 @@ public class Main {
 		ServerGUI serverGUI = new ServerGUI();
 		JTextArea textArea = serverGUI.getTextArea();
 		JButton btnAbrir = serverGUI.getBtnAbrir();
-		JButton btnComecar = serverGUI.getBtnComecar();
+		//JButton btnComecar = serverGUI.getBtnComecar();
 		JButton btnTerminar = serverGUI.getBtnTerminar();
 
-		ServerSocket serverSocket = null;
-		ServerDispatcher serverDispatcher = null;
-		ConnectionsHandler connectionsHandler = null;
+		Connections con = new Connections();
 
-		btnAbrir.addActionListener(new BtnAbrirListener(serverSocket,
-				serverDispatcher, connectionsHandler, textArea));
+		btnAbrir.addActionListener(new BtnAbrirListener(con, textArea));
+		
+		BtnTerminarListener btl = new BtnTerminarListener(con, textArea);
+		btnTerminar.addActionListener(btl);
 
-		serverGUI.addWindowListener(new WindowCLoser());
-
-		/*
-		 * Scanner scanner = new Scanner(System.in); while (true) { String
-		 * message = scanner.nextLine();
-		 * 
-		 * if (message.equals("/m")) {
-		 * serverDispatcher.serverMessage(scanner.nextLine()); }
-		 * 
-		 * if (message.equals("/u")) {
-		 * System.out.println(serverDispatcher.getClientCount() +
-		 * " users online."); }
-		 * 
-		 * if (message.equals("/q")) { connectionsHandler.interrupt(); try {
-		 * serverDispatcher.closeAllClients(); serverDispatcher.interrupt();
-		 * serverSocket.close(); } catch (IOException e) { e.printStackTrace();
-		 * }
-		 * 
-		 * scanner.close(); System.exit(0); }
-		 * 
-		 * serverDispatcher.serverMessage(message); }
-		 */
+		serverGUI.addWindowListener(new WindowCLoser(btl));
 	}
 
 }
 
 class WindowCLoser implements WindowListener {
+
+	private BtnTerminarListener btl ;
+
+	public WindowCLoser(BtnTerminarListener paramBtl) {
+		btl = paramBtl;
+	}
 
 	@Override
 	public void windowActivated(WindowEvent e) {
@@ -69,7 +54,8 @@ class WindowCLoser implements WindowListener {
 
 	@Override
 	public void windowClosing(WindowEvent e) {
-		//close socket
+		btl.actionPerformed(null);
+        System.exit(0);
 	}
 
 	@Override

@@ -17,7 +17,7 @@ public class ConnectionsHandler extends Thread {
 
 	public void run() {
 		// Accept and handle client connections
-		while (true) {
+		while (!isInterrupted()) {
 			try {
 				Socket socket = serverSocket.accept();
 				ClientInfo clientInfo = new ClientInfo();
@@ -36,7 +36,8 @@ public class ConnectionsHandler extends Thread {
 						+ serverDispatcher.getClientCount()
 						+ " user(s) online.");
 			} catch (IOException ioe) {
-				ioe.printStackTrace();
+				//ioe.printStackTrace();
+				System.out.println("socket closed exception");
 			}
 		}
 	}

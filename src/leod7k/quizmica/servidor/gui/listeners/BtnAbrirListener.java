@@ -7,46 +7,50 @@ import java.net.ServerSocket;
 
 import javax.swing.JTextArea;
 
+import leod7k.quizmica.servidor.Connections;
 import leod7k.quizmica.servidor.ConnectionsHandler;
 import leod7k.quizmica.servidor.ServerDispatcher;
 
 public class BtnAbrirListener implements ActionListener {
 	public static final int LISTENING_PORT = 2002;
+	
 	private JTextArea textArea;
-	private ServerSocket serverSocket;
-	private ServerDispatcher serverDispatcher;
-	private ConnectionsHandler connectionsHandler;
+	private Connections con;
 
-	public BtnAbrirListener(ServerSocket paramServerSocket, ServerDispatcher paramServerDispatcher, ConnectionsHandler paramConnectionsHandler, JTextArea paramTextArea) {
+	public BtnAbrirListener(Connections paramCOn, JTextArea paramTextArea) {
+		con = paramCOn;
 		textArea = paramTextArea;
-		serverSocket = paramServerSocket;
-		serverDispatcher = paramServerDispatcher;
-		connectionsHandler = paramConnectionsHandler;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// Open server socket for listening
-		serverSocket = null;
+		ServerSocket serverSocket = null;
 		try {
 			serverSocket = new ServerSocket(LISTENING_PORT);
 			
-			textArea.append("Server started on port " + LISTENING_PORT);
+			textArea.append("Server started on port " + LISTENING_PORT + "\n");
 		} catch (IOException se) {
 			se.printStackTrace();
 			
 			textArea.append("Can not start listening on port "
-					+ LISTENING_PORT);
+					+ LISTENING_PORT + "\n");
 			return;
 		}
+		
+		con.setServerSocket(serverSocket);
 
 		// Start ServerDispatcher thread
-		serverDispatcher = new ServerDispatcher();
+		ServerDispatcher serverDispatcher = new ServerDispatcher();
 		serverDispatcher.start();
+		
+		con.setServerDispatcher(serverDispatcher);
 
-		connectionsHandler = new ConnectionsHandler(
+		ConnectionsHandler connectionsHandler = new ConnectionsHandler(
 				serverSocket, serverDispatcher);
 		connectionsHandler.start();
+		
+		con.setConnectionsHandler(connectionsHandler);
 	}
 
 }
