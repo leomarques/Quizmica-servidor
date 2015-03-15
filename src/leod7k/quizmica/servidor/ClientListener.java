@@ -34,7 +34,7 @@ public class ClientListener extends Thread {
 				if (message == null)
 					break;
 
-				textArea.append(message);
+				textArea.append(message + "\n");
 				mClientInfo.mClientSender.sendMessage("recebi");
 			}
 		} catch (IOException ioex) {

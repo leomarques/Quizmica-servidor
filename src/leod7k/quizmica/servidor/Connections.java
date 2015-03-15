@@ -3,9 +3,9 @@ package leod7k.quizmica.servidor;
 import java.net.ServerSocket;
 
 public class Connections {
-	ServerSocket serverSocket = null;
-	ServerDispatcher serverDispatcher = null;
-	ConnectionsHandler connectionsHandler = null;
+	private ServerSocket serverSocket = null;
+	private ServerDispatcher serverDispatcher = null;
+	private ConnectionsHandler connectionsHandler = null;
 	
 	public ServerSocket getServerSocket() {
 		return serverSocket;
