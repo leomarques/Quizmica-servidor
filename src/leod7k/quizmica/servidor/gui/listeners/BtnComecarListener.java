@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JTextArea;
 
 import leod7k.quizmica.servidor.Connections;
+import leod7k.quizmica.servidor.Prova;
 
 public class BtnComecarListener implements ActionListener {
 
@@ -19,11 +20,12 @@ public class BtnComecarListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		if (con.getServerSocket() == null) {
+		if (con.getServerSocket() == null || con.getServerSocket().isClosed()) {
 			return;
 		}
-		textArea.append("abri\n");
-		con.getServerDispatcher().serverMessage("abri");
+		con.getConnectionsHandler().interrupt();
+
+		new Prova(con, textArea);
 	}
 
 }
