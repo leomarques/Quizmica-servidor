@@ -15,7 +15,8 @@ public class ClientListener extends Thread {
 	private JTextArea textArea;
 
 	public ClientListener(ClientInfo aClientInfo,
-			ServerDispatcher aServerDispatcher, JTextArea paramTextArea) throws IOException {
+			ServerDispatcher aServerDispatcher, JTextArea paramTextArea)
+			throws IOException {
 		mClientInfo = aClientInfo;
 		mServerDispatcher = aServerDispatcher;
 		Socket socket = aClientInfo.mSocket;

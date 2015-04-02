@@ -10,7 +10,7 @@ public class ConnectionsHandler extends Thread {
 
 	private ServerSocket serverSocket;
 	private ServerDispatcher serverDispatcher;
-	private JTextArea textArea ;
+	private JTextArea textArea;
 
 	public ConnectionsHandler(ServerSocket paramSocket,
 			ServerDispatcher paramServerDispatcher, JTextArea paramTextArea) {
