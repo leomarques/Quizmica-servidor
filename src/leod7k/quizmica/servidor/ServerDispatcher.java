@@ -90,6 +90,10 @@ public class ServerDispatcher extends Thread {
 		return mClients.size();
 	}
 
+	public Vector<ClientInfo> getmClients() {
+		return mClients;
+	}
+
 	/**
 	 * Infinitely reads messages from the queue and dispatch them to all clients
 	 * connected to the server.

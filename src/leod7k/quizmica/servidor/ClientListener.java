@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.util.ArrayList;
 
 import javax.swing.JTextArea;
 
@@ -13,6 +14,7 @@ public class ClientListener extends Thread {
 	private ClientInfo mClientInfo;
 	private BufferedReader mIn;
 	private JTextArea textArea;
+	private ArrayList<String> respostas;
 
 	public ClientListener(ClientInfo aClientInfo,
 			ServerDispatcher aServerDispatcher, JTextArea paramTextArea)
@@ -22,6 +24,7 @@ public class ClientListener extends Thread {
 		Socket socket = aClientInfo.mSocket;
 		mIn = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		textArea = paramTextArea;
+		respostas = new ArrayList<String>();
 	}
 
 	/**
@@ -36,6 +39,12 @@ public class ClientListener extends Thread {
 					break;
 
 				textArea.append(message + "\n");
+				
+				String[] mensagem = message.split(" ");
+				if (mensagem[1].equals("respondeu")) {
+					respostas.add(message.split(" ")[2]);
+				}
+				
 				mClientInfo.mClientSender.sendMessage("recebi");
 			}
 		} catch (IOException ioex) {
@@ -46,6 +55,10 @@ public class ClientListener extends Thread {
 		// threads
 		mClientInfo.mClientSender.interrupt();
 		mServerDispatcher.deleteClient(mClientInfo);
+	}
+
+	public ArrayList<String> getRespostas() {
+		return respostas;
 	}
 
 }
