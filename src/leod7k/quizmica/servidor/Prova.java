@@ -140,13 +140,13 @@ public class Prova {
 		
 		for (ClientInfo cliente : provaListener.getTodosClientes()) {
 			String r = provaListener.getResposta(cliente, q);
-			if (r.equals("'A'")) {
+			if (r.equals("A")) {
 				v[0]++;
-			} else if (r.equals("'B'")) {
+			} else if (r.equals("B")) {
 				v[1]++;
-			} else if (r.equals("'C'")) {
+			} else if (r.equals("C")) {
 				v[2]++;
-			} else if (r.equals("'D'")) {
+			} else if (r.equals("D")) {
 				v[3]++;
 			}
 		}

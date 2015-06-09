@@ -31,9 +31,12 @@ public class ClientListener extends Thread {
 				if (message == null)
 					break;
 				
-				String[] mensagem = message.split(" ");
-				if (mensagem[1].equals("respondeu")) {
-					Prova.provaListener.addResposta(mClientInfo, message.split(" ")[2]);
+				String[] mensagemArray = message.split(";");
+				if (mensagemArray.length >= 2 && mensagemArray[0].equals("r")) {
+					Prova.provaListener.addResposta(mClientInfo, mensagemArray[1]);
+				}
+				if (mensagemArray.length >= 2 && mensagemArray[0].equals("n")) {
+					mClientInfo.nome = mensagemArray[1];
 				}
 				
 				mClientInfo.mClientSender.sendMessage("recebi");
