@@ -27,7 +27,7 @@ public class ConnectionsHandler extends Thread {
 				ClientInfo clientInfo = new ClientInfo();
 				clientInfo.mSocket = socket;
 				ClientListener clientListener = new ClientListener(clientInfo,
-						serverDispatcher, textArea);
+						serverDispatcher);
 				ClientSender clientSender = new ClientSender(clientInfo,
 						serverDispatcher);
 				clientInfo.mClientListener = clientListener;

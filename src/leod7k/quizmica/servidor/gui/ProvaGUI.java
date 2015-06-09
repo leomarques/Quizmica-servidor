@@ -25,6 +25,10 @@ public class ProvaGUI extends JFrame {
 	public JButton getBtnPassar() {
 		return panel.btnPassar;
 	}
+	
+	public JButton getBtnResultado() {
+		return panel.btnResultado;
+	}
 
 	public JLabel getLabel() {
 		return panel.label;
@@ -35,10 +39,12 @@ public class ProvaGUI extends JFrame {
 class Panel2 extends JPanel {
 	public JLabel label;
 	public JButton btnPassar;
+	public JButton btnResultado;
 
 	Panel2() {
 		label = new JLabel();
 		btnPassar = new JButton("Próximo");
+		btnResultado = new JButton("Ver resultado");
 
 		setLayout(new BorderLayout());
 		add(label, BorderLayout.PAGE_START);
@@ -46,6 +52,7 @@ class Panel2 extends JPanel {
 		JPanel p = new JPanel();
 
 		p.add(btnPassar, BorderLayout.PAGE_END);
+		p.add(btnResultado, BorderLayout.PAGE_END);
 
 		add(p, BorderLayout.PAGE_END);
 	}
