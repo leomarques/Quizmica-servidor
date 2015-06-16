@@ -24,9 +24,8 @@ public class ProvaListener {
 	public void addResposta(ClientInfo mClientInfo, String message) {
 		mapaClienteResposta.get(mClientInfo).put(q, message);
 		
-		textArea.append(mClientInfo + " respondeu " + message + "\n");
+		textArea.append(mClientInfo + " respondeu\n");
 		textArea.append(quantosResponderam(q) + " já responderam\n");
-		
 	}
 
 	private Integer quantosResponderam(int q) {

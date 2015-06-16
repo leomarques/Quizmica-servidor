@@ -23,7 +23,7 @@ public class Main {
 
 		btnAbrir.addActionListener(new BtnAbrirListener(con, textArea));
 		
-		btnComecar.addActionListener(new BtnComecarListener(con, textArea));
+		btnComecar.addActionListener(new BtnComecarListener(con, textArea, serverGUI));
 		
 		BtnTerminarListener btl = new BtnTerminarListener(con, textArea);
 		btnTerminar.addActionListener(btl);

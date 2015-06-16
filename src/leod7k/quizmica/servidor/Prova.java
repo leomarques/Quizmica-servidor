@@ -3,6 +3,7 @@ package leod7k.quizmica.servidor;
 import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
@@ -24,10 +25,12 @@ public class Prova {
 	private ProvaGUI gui;
 	private ArrayList<String> qTexts;
 	private JTextArea textArea;
+	private File file;
 
-	public Prova(Connections paramCon, JTextArea paramTextArea) {
+	public Prova(Connections paramCon, JTextArea paramTextArea, File paramFile) {
 		con = paramCon;
 		q = -1;
+		file = paramFile;
 
 		addQuestoes();
 
@@ -46,7 +49,7 @@ public class Prova {
 		BufferedReader reader = null;
 
 		try {
-			reader = new BufferedReader(new FileReader("prova.txt"));
+			reader = new BufferedReader(new FileReader(file));
 
 			String temp;
 			while ((temp = reader.readLine()) != null) {
@@ -103,7 +106,8 @@ public class Prova {
 		BufferedWriter out = null;
 
 		try {
-			out = new BufferedWriter(new FileWriter("respostas.txt"));
+			String fileName = (file.getName().split("\\.")[0]).concat("-resultados.txt");
+			out = new BufferedWriter(new FileWriter(fileName));
 
 			for (ClientInfo clientInfo : con.getServerDispatcher()
 					.getmClients()) {
