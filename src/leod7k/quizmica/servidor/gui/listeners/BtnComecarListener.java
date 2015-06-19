@@ -17,7 +17,8 @@ public class BtnComecarListener implements ActionListener {
 	private JTextArea textArea;
 	private ServerGUI serverGui;
 
-	public BtnComecarListener(Connections paramCon, JTextArea paramTextArea, ServerGUI paramServerGUI) {
+	public BtnComecarListener(Connections paramCon, JTextArea paramTextArea,
+			ServerGUI paramServerGUI) {
 		con = paramCon;
 		textArea = paramTextArea;
 		serverGui = paramServerGUI;
@@ -30,15 +31,17 @@ public class BtnComecarListener implements ActionListener {
 		}
 
 		final JFileChooser fc = new JFileChooser();
+		File workingDirectory = new File(System.getProperty("user.dir"));
+		fc.setCurrentDirectory(workingDirectory);
+
 		int returnVal = fc.showOpenDialog(serverGui);
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
-            File file = fc.getSelectedFile();
-            if (file != null) {
-            	new Prova(con, textArea, file);
-            }
+			File file = fc.getSelectedFile();
+			if (file != null) {
+				con.getConnectionsHandler().interrupt();
+				new Prova(con, textArea, file);
+			}
 		}
-		
-		con.getConnectionsHandler().interrupt();
 	}
 
 }

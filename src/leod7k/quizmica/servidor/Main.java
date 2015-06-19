@@ -22,9 +22,10 @@ public class Main {
 		Connections con = new Connections();
 
 		btnAbrir.addActionListener(new BtnAbrirListener(con, textArea));
-		
-		btnComecar.addActionListener(new BtnComecarListener(con, textArea, serverGUI));
-		
+
+		btnComecar.addActionListener(new BtnComecarListener(con, textArea,
+				serverGUI));
+
 		BtnTerminarListener btl = new BtnTerminarListener(con, textArea);
 		btnTerminar.addActionListener(btl);
 

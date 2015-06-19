@@ -19,9 +19,8 @@ public class Prova {
 	public static ProvaListener provaListener;
 
 	private static final int QNT_ALTERNATIVAS = 4;
-	private static final int QNT_QUESTOES = 3;
 	private Connections con;
-	private int q;
+	private int q, qntQuestoes;
 	private ProvaGUI gui;
 	private ArrayList<String> qTexts;
 	private JTextArea textArea;
@@ -29,8 +28,9 @@ public class Prova {
 
 	public Prova(Connections paramCon, JTextArea paramTextArea, File paramFile) {
 		con = paramCon;
-		q = -1;
 		file = paramFile;
+		q = -1;
+		qntQuestoes = 0;
 
 		addQuestoes();
 
@@ -53,6 +53,7 @@ public class Prova {
 
 			String temp;
 			while ((temp = reader.readLine()) != null) {
+				qntQuestoes++;
 				String text = "<html> <h3>" + temp + "</h3><p>";
 				for (int i = 0; i < QNT_ALTERNATIVAS; i++)
 					text += reader.readLine() + "<p>";
@@ -77,12 +78,13 @@ public class Prova {
 					+ "B) Mésons, Quarks e Anti-neutrino<p>"
 					+ "C) Positron, Neutrino e Raios Gama<p>"
 					+ "D) Próton, Nêutron e Elétron </html>");
+			qntQuestoes = 3;
 		}
 	}
 
 	public void proxima() {
 		provaListener.q = ++q;
-		if (q < QNT_QUESTOES) {
+		if (q < qntQuestoes) {
 			textArea.setText("Questão " + (q + 1) + "\n");
 			con.getServerDispatcher().serverMessage(q + "");
 			gui.getLabel().setText(qTexts.get(q));
@@ -106,28 +108,25 @@ public class Prova {
 		BufferedWriter out = null;
 
 		try {
-			String fileName = (file.getName().split("\\.")[0]).concat("-resultados.txt");
+			String fileName = (file.getName().split("\\.")[0])
+					.concat("-resultados.txt");
 			out = new BufferedWriter(new FileWriter(fileName));
 
 			for (ClientInfo clientInfo : con.getServerDispatcher()
 					.getmClients()) {
 				out.write(clientInfo.toString() + ":");
 				out.newLine();
-				for (int i = 0; i < QNT_QUESTOES; i++) {
+				for (int i = 0; i < qntQuestoes; i++) {
 					out.write((i + 1) + ") "
 							+ provaListener.getResposta(clientInfo, i));
 					out.newLine();
-					if (provaListener.getResposta(clientInfo, i).equals(
-							"'A'")) {
+					if (provaListener.getResposta(clientInfo, i).equals("'A'")) {
 					}
-					if (provaListener.getResposta(clientInfo, i).equals(
-							"'B'")) {
+					if (provaListener.getResposta(clientInfo, i).equals("'B'")) {
 					}
-					if (provaListener.getResposta(clientInfo, i).equals(
-							"'C'")) {
+					if (provaListener.getResposta(clientInfo, i).equals("'C'")) {
 					}
-					if (provaListener.getResposta(clientInfo, i).equals(
-							"'D'")) {
+					if (provaListener.getResposta(clientInfo, i).equals("'D'")) {
 					}
 				}
 			}
@@ -141,7 +140,7 @@ public class Prova {
 
 	public void verResultado() {
 		int[] v = new int[QNT_ALTERNATIVAS];
-		
+
 		for (ClientInfo cliente : provaListener.getTodosClientes()) {
 			String r = provaListener.getResposta(cliente, q);
 			if (r.equals("A")) {
@@ -154,14 +153,12 @@ public class Prova {
 				v[3]++;
 			}
 		}
-		
 
-		String[] v2 = {"A", "B", "C", "D"};
+		String[] v2 = { "A", "B", "C", "D" };
 		textArea.setText("Questão " + (q + 1) + ":\n");
 		for (int i = 0; i < QNT_ALTERNATIVAS; i++) {
 			if (v[i] != 0) {
-				textArea.append(v[i] + " alunos ("
-						+ v[i] * 100
+				textArea.append(v[i] + " alunos (" + v[i] * 100
 						/ con.getServerDispatcher().getClientCount()
 						+ "%) responderam " + v2[i] + "\n");
 			}

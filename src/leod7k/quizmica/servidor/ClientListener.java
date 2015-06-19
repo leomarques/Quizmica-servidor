@@ -12,8 +12,7 @@ public class ClientListener extends Thread {
 	private BufferedReader mIn;
 
 	public ClientListener(ClientInfo aClientInfo,
-			ServerDispatcher aServerDispatcher)
-			throws IOException {
+			ServerDispatcher aServerDispatcher) throws IOException {
 		mClientInfo = aClientInfo;
 		mServerDispatcher = aServerDispatcher;
 		Socket socket = aClientInfo.mSocket;
@@ -30,15 +29,16 @@ public class ClientListener extends Thread {
 				String message = mIn.readLine();
 				if (message == null)
 					break;
-				
+
 				String[] mensagemArray = message.split(";");
 				if (mensagemArray.length >= 2 && mensagemArray[0].equals("r")) {
-					Prova.provaListener.addResposta(mClientInfo, mensagemArray[1]);
+					Prova.provaListener.addResposta(mClientInfo,
+							mensagemArray[1]);
 				}
 				if (mensagemArray.length >= 2 && mensagemArray[0].equals("n")) {
 					mClientInfo.nome = mensagemArray[1];
 				}
-				
+
 				mClientInfo.mClientSender.sendMessage("recebi");
 			}
 		} catch (IOException ioex) {

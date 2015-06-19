@@ -29,11 +29,12 @@ public class BtnAbrirListener implements ActionListener {
 		try {
 			serverSocket = new ServerSocket(LISTENING_PORT);
 
-			textArea.append("Server started on port " + LISTENING_PORT + "\n");
+			textArea.append("Servidor iniciado na porta " + LISTENING_PORT
+					+ "\n");
 		} catch (IOException se) {
 			se.printStackTrace();
 
-			textArea.append("Can not start listening on port " + LISTENING_PORT
+			textArea.append("Não é possível ouvir a porta " + LISTENING_PORT
 					+ "\n");
 			return;
 		}

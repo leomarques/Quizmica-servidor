@@ -13,7 +13,7 @@ public class ProvaGUI extends JFrame {
 
 	public ProvaGUI() {
 		setTitle("Prova");
-		setSize(320, 240);
+		setSize(500, 350);
 		setLocationRelativeTo(null);
 
 		panel = new Panel2();
@@ -25,7 +25,7 @@ public class ProvaGUI extends JFrame {
 	public JButton getBtnPassar() {
 		return panel.btnPassar;
 	}
-	
+
 	public JButton getBtnResultado() {
 		return panel.btnResultado;
 	}
