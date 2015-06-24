@@ -105,17 +105,12 @@ public class Prova {
 				out.write(clientInfo.toString() + ":");
 				out.newLine();
 				for (int i = 0; i < qntQuestoes; i++) {
+					String r = provaListener.getResposta(clientInfo, i);
+					if (r == null)
+						r = "0";
 					out.write((i + 1) + ") "
-							+ provaListener.getResposta(clientInfo, i));
+							+ r);
 					out.newLine();
-					if (provaListener.getResposta(clientInfo, i).equals("'A'")) {
-					}
-					if (provaListener.getResposta(clientInfo, i).equals("'B'")) {
-					}
-					if (provaListener.getResposta(clientInfo, i).equals("'C'")) {
-					}
-					if (provaListener.getResposta(clientInfo, i).equals("'D'")) {
-					}
 				}
 			}
 
@@ -131,6 +126,8 @@ public class Prova {
 
 		for (ClientInfo cliente : provaListener.getTodosClientes()) {
 			String r = provaListener.getResposta(cliente, q);
+			if (r == null)
+				continue;
 			if (r.equals("A")) {
 				v[0]++;
 			} else if (r.equals("B")) {
