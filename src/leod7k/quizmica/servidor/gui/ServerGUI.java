@@ -12,7 +12,7 @@ public class ServerGUI extends JFrame {
 	private Panel panel;
 
 	public ServerGUI() {
-		setTitle("Quizmica v1");
+		setTitle("Quizmica");
 		setSize(640, 480);
 		setLocationRelativeTo(null);
 

@@ -12,7 +12,7 @@ public class ProvaGUI extends JFrame {
 	private Panel2 panel;
 
 	public ProvaGUI() {
-		setTitle("Prova");
+		setTitle("Avaliação");
 		setSize(500, 350);
 		setLocationRelativeTo(null);
 

@@ -85,9 +85,9 @@ public class Prova {
 		gui.dispatchEvent(new WindowEvent(gui, WindowEvent.WINDOW_CLOSING));
 		con.getServerDispatcher().serverMessage("fim");
 
-		textArea.setText("Fim da prova\n");
+		textArea.setText("Fim da avaliação\n");
 		textArea.append(con.getServerDispatcher().getClientCount()
-				+ " alunos fizeram a prova.\n");
+				+ " alunos fizeram a avaliação.\n");
 
 		respostasNoArquivo();
 	}
