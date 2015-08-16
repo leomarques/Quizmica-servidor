@@ -3,11 +3,14 @@ package leod7k.quizmica.servidor.gui;
 import java.awt.Graphics;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
@@ -20,17 +23,19 @@ public class AberturaGUI extends JFrame {
 
 	public AberturaGUI() {		
 		try {
-			image = ImageIO.read(new File("logo.jpg"));
+			image = ImageIO.read(getClass().getResource("/img/logo.jpg"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
+		URL url = getClass().getResource("/img/load.gif");
+		
 		setTitle("Quizmica");
 		setSize(image.getWidth(), image.getHeight());
 		setLocationRelativeTo(null);
 
-		panel = new Panel3(image);
+		panel = new Panel3(image, url);
 		add(panel);
 
 		setVisible(true);
@@ -52,8 +57,12 @@ public class AberturaGUI extends JFrame {
 class Panel3 extends JPanel {
 	private BufferedImage image;
 
-	public Panel3(BufferedImage image2) {
+	public Panel3(BufferedImage image2, URL url) {
 		image = image2;
+		
+		Icon myImgIcon = new ImageIcon(url);
+		JLabel imageLbl = new JLabel(myImgIcon);
+		add(imageLbl);
 	}
 
 	@Override
