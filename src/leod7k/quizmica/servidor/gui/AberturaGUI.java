@@ -32,7 +32,7 @@ public class AberturaGUI extends JFrame {
 		URL url = getClass().getResource("/img/load.gif");
 		
 		setTitle("Quizmica");
-		setSize(image.getWidth(), image.getHeight());
+		setSize(image.getWidth() + 20, image.getHeight() + 30);
 		setLocationRelativeTo(null);
 
 		panel = new Panel3(image, url);
