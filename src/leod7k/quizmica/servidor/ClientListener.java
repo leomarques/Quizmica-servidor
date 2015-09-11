@@ -14,8 +14,8 @@ public class ClientListener extends Thread {
 	private BufferedReader mIn;
 	private JTextArea textArea;
 
-	public ClientListener(ClientInfo aClientInfo,
-			ServerDispatcher aServerDispatcher, JTextArea aTextArea) throws IOException {
+	public ClientListener(ClientInfo aClientInfo, ServerDispatcher aServerDispatcher, JTextArea aTextArea)
+			throws IOException {
 		mClientInfo = aClientInfo;
 		mServerDispatcher = aServerDispatcher;
 		Socket socket = aClientInfo.mSocket;
@@ -36,14 +36,26 @@ public class ClientListener extends Thread {
 
 				String[] mensagemArray = message.split(";");
 				if (mensagemArray.length >= 2 && mensagemArray[0].equals("r")) {
-					Prova.provaListener.addResposta(mClientInfo,
-							mensagemArray[1]);
+					if (Prova.isOpen()) {
+						Prova.provaListener.addResposta(mClientInfo, mensagemArray[1]);
+					}
 				}
-				if (mensagemArray.length >= 2 && mensagemArray[0].equals("n")) {
+				if (mensagemArray.length >= 2 && mensagemArray[0].equals("a")) {
 					mClientInfo.nome = mensagemArray[1];
+
+					if (!Prova.isOpen()) {//|| Prova.provaListener.getTodosClientes().contains(mClientInfo)) {
+						mServerDispatcher.addClient(mClientInfo);
+
+						textArea.append("Usuário " + mClientInfo + " conectou, " + mServerDispatcher.getClientCount()
+								+ " usuário(s) online.\n");
+
+						mClientInfo.mClientSender.sendMessage("in");
+					} else {
+						mClientInfo.nome = null;
+						break;
+					}
 				}
 
-				mClientInfo.mClientSender.sendMessage("recebi");
 			}
 		} catch (IOException ioex) {
 			// Problem reading from socket (communication is broken)
@@ -52,8 +64,10 @@ public class ClientListener extends Thread {
 		// Communication is broken. Interrupt both listener and sender
 		// threads
 		mClientInfo.mClientSender.interrupt();
-		mServerDispatcher.deleteClient(mClientInfo);
-		textArea.append(mClientInfo + " desconectou\n");
+		if (mClientInfo.nome != null) {
+			mServerDispatcher.deleteClient(mClientInfo);
+			textArea.append(mClientInfo + " desconectou\n");
+		}
 	}
 
 }

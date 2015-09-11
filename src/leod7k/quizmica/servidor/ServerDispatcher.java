@@ -46,7 +46,6 @@ public class ServerDispatcher extends Thread {
 	}
 
 	public synchronized void serverMessage(String aMessage) {
-		aMessage = "SERVER: " + aMessage + "\n";
 		mMessageQueue.add(aMessage);
 		notify();
 	}

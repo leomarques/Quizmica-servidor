@@ -42,6 +42,7 @@ public class Prova {
 
 		gui.getBtnPassar().addActionListener(new BtnPassarListener(this));
 		gui.getBtnResultado().addActionListener(new BtnResultadoListener(this));
+		con.getServerDispatcher().serverMessage("comecou");
 		proxima();
 	}
 
@@ -149,5 +150,9 @@ public class Prova {
 			}
 		}
 		textArea.append("\n");
+	}
+
+	public static boolean isOpen() {
+		return provaListener != null;
 	}
 }

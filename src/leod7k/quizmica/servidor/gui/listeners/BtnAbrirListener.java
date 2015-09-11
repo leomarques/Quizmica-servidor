@@ -29,8 +29,7 @@ public class BtnAbrirListener implements ActionListener {
 		try {
 			serverSocket = new ServerSocket(LISTENING_PORT);
 
-			textArea.append("Servidor iniciado na porta " + LISTENING_PORT
-					+ "\n");
+			textArea.append("Servidor iniciado\n");
 		} catch (IOException se) {
 			se.printStackTrace();
 

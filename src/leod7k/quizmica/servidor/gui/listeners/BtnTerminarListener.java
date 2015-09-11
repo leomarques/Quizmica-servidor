@@ -7,6 +7,7 @@ import java.io.IOException;
 import javax.swing.JTextArea;
 
 import leod7k.quizmica.servidor.Connections;
+import leod7k.quizmica.servidor.Prova;
 
 public class BtnTerminarListener implements ActionListener {
 	
@@ -29,6 +30,7 @@ public class BtnTerminarListener implements ActionListener {
 			con.getServerDispatcher().closeAllClients();
 			con.getServerDispatcher().interrupt();
 			con.getServerSocket().close();
+			Prova.provaListener = null;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -38,7 +38,6 @@ public class BtnComecarListener implements ActionListener {
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			File file = fc.getSelectedFile();
 			if (file != null) {
-				con.getConnectionsHandler().interrupt();
 				new Prova(con, textArea, file);
 			}
 		}

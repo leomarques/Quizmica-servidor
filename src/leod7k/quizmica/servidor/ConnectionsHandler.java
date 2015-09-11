@@ -34,11 +34,6 @@ public class ConnectionsHandler extends Thread {
 				clientInfo.mClientSender = clientSender;
 				clientListener.start();
 				clientSender.start();
-				serverDispatcher.addClient(clientInfo);
-
-				textArea.append("Usuário " + clientInfo + " conectou, "
-						+ serverDispatcher.getClientCount()
-						+ " usuário(s) online.\n");
 			} catch (IOException ioe) {
 				// ioe.printStackTrace();
 				System.out.println("socket closed exception");
