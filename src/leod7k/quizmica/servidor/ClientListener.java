@@ -56,8 +56,7 @@ public class ClientListener extends Thread {
 								cliente.mClientSender = mClientInfo.mClientSender;
 								mClientInfo = cliente;
 								cliente.mClientSender.mClientInfo = cliente;
-								
-								
+
 								achou = true;
 								mClientInfo.mClientSender.sendMessage("comecou");
 								break;
@@ -87,6 +86,7 @@ public class ClientListener extends Thread {
 		if (mClientInfo.nome != null) {
 			mServerDispatcher.deleteClient(mClientInfo);
 			textArea.append(mClientInfo + " desconectou\n");
+			textArea.append(mServerDispatcher.getClientCount() + " usuário(s) online.\n");
 		}
 	}
 
