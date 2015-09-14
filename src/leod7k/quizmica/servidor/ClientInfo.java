@@ -21,4 +21,9 @@ public class ClientInfo {
 		
 		return nome;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return nome.equals(((ClientInfo) obj).nome);
+	}
 }

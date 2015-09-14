@@ -17,7 +17,7 @@ public class ClientSender extends Thread {
 	private Vector<String> mMessageQueue = new Vector<String>();
 
 	private ServerDispatcher mServerDispatcher;
-	private ClientInfo mClientInfo;
+	public ClientInfo mClientInfo;
 	private PrintWriter mOut;
 
 	public ClientSender(ClientInfo aClientInfo,

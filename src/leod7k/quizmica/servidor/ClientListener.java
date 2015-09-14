@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.util.Iterator;
+import java.util.Set;
 
 import javax.swing.JTextArea;
 
@@ -43,19 +45,37 @@ public class ClientListener extends Thread {
 				if (mensagemArray.length >= 2 && mensagemArray[0].equals("a")) {
 					mClientInfo.nome = mensagemArray[1];
 
-					if (!Prova.isOpen()) {//|| Prova.provaListener.getTodosClientes().contains(mClientInfo)) {
-						mServerDispatcher.addClient(mClientInfo);
-
-						textArea.append("Usuário " + mClientInfo + " conectou, " + mServerDispatcher.getClientCount()
-								+ " usuário(s) online.\n");
-
-						mClientInfo.mClientSender.sendMessage("in");
-					} else {
-						mClientInfo.nome = null;
-						break;
+					if (Prova.isOpen()) {
+						Set<ClientInfo> clientes = Prova.provaListener.getTodosClientes();
+						boolean achou = false;
+						for (Iterator<ClientInfo> it = clientes.iterator(); it.hasNext();) {
+							ClientInfo cliente = it.next();
+							if (cliente.equals(mClientInfo)) {
+								cliente.mSocket = mClientInfo.mSocket;
+								cliente.mClientListener = mClientInfo.mClientListener;
+								cliente.mClientSender = mClientInfo.mClientSender;
+								mClientInfo = cliente;
+								cliente.mClientSender.mClientInfo = cliente;
+								
+								
+								achou = true;
+								mClientInfo.mClientSender.sendMessage("comecou");
+								break;
+							}
+						}
+						if (!achou) {
+							mClientInfo.nome = null;
+							break;
+						}
 					}
-				}
 
+					mServerDispatcher.addClient(mClientInfo);
+
+					textArea.append("Usuário " + mClientInfo + " conectou, " + mServerDispatcher.getClientCount()
+							+ " usuário(s) online.\n");
+
+					mClientInfo.mClientSender.sendMessage("in");
+				}
 			}
 		} catch (IOException ioex) {
 			// Problem reading from socket (communication is broken)
