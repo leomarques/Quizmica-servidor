@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 @SuppressWarnings("serial")
@@ -43,9 +44,11 @@ public class ServerGUI extends JFrame {
 class Panel extends JPanel {
 	public JTextArea textArea;
 	public JButton btnAbrir, btnComecar, btnTerminar;
-
+	public JScrollPane scrollPane;
+	
 	Panel() {
-		textArea = new JTextArea();
+		textArea = new JTextArea(25, 1);
+		scrollPane = new JScrollPane(textArea);
 		btnAbrir = new JButton("Abrir");
 		btnComecar = new JButton("Começar");
 		btnTerminar = new JButton("Terminar");
@@ -53,7 +56,7 @@ class Panel extends JPanel {
 		textArea.setEditable(false);
 
 		setLayout(new BorderLayout());
-		add(textArea, BorderLayout.PAGE_START);
+		add(scrollPane, BorderLayout.PAGE_START);
 
 		JPanel p = new JPanel();
 
