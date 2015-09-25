@@ -22,7 +22,7 @@ public class ClientListener extends Thread {
 		mServerDispatcher = aServerDispatcher;
 		Socket socket = aClientInfo.mSocket;
 		textArea = aTextArea;
-		mIn = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+		mIn = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
 	}
 
 	/**
@@ -72,6 +72,8 @@ public class ClientListener extends Thread {
 
 					textArea.append("Usuário " + mClientInfo + " conectou, " + mServerDispatcher.getClientCount()
 							+ " usuário(s) online.\n");
+					System.out.println("Usuário " + mClientInfo + " conectou, " + mServerDispatcher.getClientCount()
+					+ " usuário(s) online.\n");
 
 					mClientInfo.mClientSender.sendMessage("in");
 				}
