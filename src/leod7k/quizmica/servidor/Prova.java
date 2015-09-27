@@ -17,6 +17,7 @@ import leod7k.quizmica.servidor.gui.listeners.BtnResultadoListener;
 public class Prova {
 
 	public static ProvaListener provaListener;
+	public static boolean aceitandoRespostas;
 
 	private static final int QNT_ALTERNATIVAS = 4;
 	private Connections con;
@@ -38,6 +39,7 @@ public class Prova {
 		textArea = paramTextArea;
 		provaListener = new ProvaListener(textArea, con.getServerDispatcher()
 				.getmClients());
+		aceitandoRespostas = true;
 		gui = new ProvaGUI();
 
 		gui.getBtnPassar().addActionListener(new BtnPassarListener(this));
@@ -73,6 +75,7 @@ public class Prova {
 
 	public void proxima() {
 		provaListener.q = ++q;
+		aceitandoRespostas = true;
 		if (q < qntQuestoes) {
 			textArea.setText("Questão " + (q + 1) + "\n");
 			con.getServerDispatcher().serverMessage(q + "");
@@ -150,6 +153,8 @@ public class Prova {
 			}
 		}
 		textArea.append("\n");
+		
+		aceitandoRespostas = false;
 	}
 
 	public static boolean isOpen() {

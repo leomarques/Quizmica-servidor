@@ -38,7 +38,7 @@ public class ClientListener extends Thread {
 
 				String[] mensagemArray = message.split(";");
 				if (mensagemArray.length >= 2 && mensagemArray[0].equals("r")) {
-					if (Prova.isOpen()) {
+					if (Prova.isOpen() && Prova.aceitandoRespostas) {
 						Prova.provaListener.addResposta(mClientInfo, mensagemArray[1]);
 					}
 				}
@@ -72,8 +72,6 @@ public class ClientListener extends Thread {
 
 					textArea.append("Usuário " + mClientInfo + " conectou, " + mServerDispatcher.getClientCount()
 							+ " usuário(s) online.\n");
-					System.out.println("Usuário " + mClientInfo + " conectou, " + mServerDispatcher.getClientCount()
-					+ " usuário(s) online.\n");
 
 					mClientInfo.mClientSender.sendMessage("in");
 				}
