@@ -58,9 +58,9 @@ public class Prova {
 			String temp;
 			while ((temp = reader.readLine()) != null) {
 				qntQuestoes++;
-				String text = "<html> <h1>" + temp + "</h1><p>";
+				String text = "<html> <p style=\"font-size:13px\">" + temp + "</h2><p>";
 				for (int i = 0; i < QNT_ALTERNATIVAS; i++)
-					text += "<h3>" + reader.readLine() + "</h3><p>";
+					text += "<p style=\"font-size:11px\">" + reader.readLine() + "<p>";
 				qTexts.add(text + "</html>");
 			}
 
