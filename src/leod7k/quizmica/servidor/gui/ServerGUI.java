@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.text.DefaultCaret;
 
 @SuppressWarnings("serial")
 public class ServerGUI extends JFrame {
@@ -54,6 +55,8 @@ class Panel extends JPanel {
 		btnTerminar = new JButton("Terminar");
 
 		textArea.setEditable(false);
+		DefaultCaret caret = (DefaultCaret)textArea.getCaret();
+		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 
 		setLayout(new BorderLayout());
 		add(scrollPane, BorderLayout.PAGE_START);
