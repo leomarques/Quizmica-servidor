@@ -39,12 +39,16 @@ public class ServerGUI extends JFrame {
 	public JButton getBtnTerminar() {
 		return panel.btnTerminar;
 	}
+	
+	public JButton getBtnCriarProva() {
+		return panel.btnCriarProva;
+	}
 }
 
 @SuppressWarnings("serial")
 class Panel extends JPanel {
 	public JTextArea textArea;
-	public JButton btnAbrir, btnComecar, btnTerminar;
+	public JButton btnAbrir, btnComecar, btnTerminar, btnCriarProva;
 	public JScrollPane scrollPane;
 	
 	Panel() {
@@ -53,6 +57,7 @@ class Panel extends JPanel {
 		btnAbrir = new JButton("Abrir");
 		btnComecar = new JButton("Começar");
 		btnTerminar = new JButton("Terminar");
+		btnCriarProva = new JButton("Criar avaliação");
 
 		textArea.setEditable(false);
 		DefaultCaret caret = (DefaultCaret)textArea.getCaret();
@@ -66,6 +71,7 @@ class Panel extends JPanel {
 		p.add(btnAbrir, BorderLayout.PAGE_END);
 		p.add(btnComecar, BorderLayout.PAGE_END);
 		p.add(btnTerminar, BorderLayout.PAGE_END);
+		p.add(btnCriarProva, BorderLayout.PAGE_END);
 
 		add(p, BorderLayout.PAGE_END);
 	}
