@@ -6,7 +6,9 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.EtchedBorder;
 
@@ -16,7 +18,7 @@ public class CriarProvaGUI extends JFrame {
 	
 	public CriarProvaGUI() {
 		setTitle("Criar avaliação");
-		setSize(600, 420);
+		setSize(600, 520);
 		setLocationRelativeTo(null);
 
 		panel = new Panel4();
@@ -58,13 +60,19 @@ public class CriarProvaGUI extends JFrame {
 class Panel4 extends JPanel {
 	public JTextArea enunciado, a, b, c, d;
 	public JButton btnNovaQ, btnSalvar;
+	public JScrollPane scrollPaneE, scrollPaneA, scrollPaneB, scrollPaneC, scrollPaneD;
 
 	Panel4() {
-		enunciado = new JTextArea("Enunciado da questão", 4, 1);
-		a = new JTextArea("Alternativa A", 4, 1);
-		b = new JTextArea("Alternativa B", 4, 1);
-		c = new JTextArea("Alternativa C", 4, 1);
-		d = new JTextArea("Alternativa D", 4, 1);
+		enunciado = new JTextArea("", 4, 1);
+		scrollPaneE = new JScrollPane(enunciado);
+		a = new JTextArea("", 3, 1);
+		scrollPaneA = new JScrollPane(a);
+		b = new JTextArea("", 3, 1);
+		scrollPaneB = new JScrollPane(b);
+		c = new JTextArea("", 3, 1);
+		scrollPaneC = new JScrollPane(c);
+		d = new JTextArea("", 3, 1);
+		scrollPaneD = new JScrollPane(d);
 
 		a.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 		b.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
@@ -73,11 +81,27 @@ class Panel4 extends JPanel {
 		
 		//setLayout(new BorderLayout());
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-		add(enunciado);
-		add(a);
-		add(b);
-		add(c);
-		add(d);
+
+		JPanel p1 = new JPanel();
+		p1.add(new JLabel("Enunciado da questão"));
+		add(p1);
+		add(scrollPaneE);
+		JPanel p2 = new JPanel();
+		p2.add(new JLabel("Alternativa A"));
+		add(p2);
+		add(scrollPaneA);
+		JPanel p3 = new JPanel();
+		p3.add(new JLabel("Alternativa B"));
+		add(p3);
+		add(scrollPaneB);
+		JPanel p4 = new JPanel();
+		p4.add(new JLabel("Alternativa C"));
+		add(p4);
+		add(scrollPaneC);
+		JPanel p5 = new JPanel();
+		p5.add(new JLabel("Alternativa D"));
+		add(p5);
+		add(scrollPaneD);
 		
 		JPanel p = new JPanel();
 

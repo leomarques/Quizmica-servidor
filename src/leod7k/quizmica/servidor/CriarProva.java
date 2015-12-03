@@ -7,6 +7,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 
 import leod7k.quizmica.servidor.gui.CriarProvaGUI;
@@ -16,9 +17,13 @@ public class CriarProva {
 	JTextArea enunciado, a, b, c, d;
 	ArrayList<ArrayList<String>> prova;
 	CriarProvaGUI cpg;
+	String nome;
+	int qs = 1;
 
-	public CriarProva() {
+	public CriarProva(String nome) {
+		this.nome = nome;
 		cpg = new CriarProvaGUI();
+		cpg.setTitle("Avaliação " + nome + " - Questão 1");
 		enunciado = cpg.getEnunciado();
 		a = cpg.getA();
 		b = cpg.getB();
@@ -31,7 +36,7 @@ public class CriarProva {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ArrayList<String> questoes = new ArrayList<>();
-				questoes.add(enunciado.getText());
+				questoes.add(enunciado.getText().replace("\n", "<br>"));
 				questoes.add(a.getText());
 				questoes.add(b.getText());
 				questoes.add(c.getText());
@@ -39,11 +44,13 @@ public class CriarProva {
 
 				prova.add(questoes);
 
-				enunciado.setText("Enunciado");
-				a.setText("Alternativa A");
-				b.setText("Alternativa B");
-				c.setText("Alternativa C");
-				d.setText("Alternativa D");
+				enunciado.setText("");
+				a.setText("");
+				b.setText("");
+				c.setText("");
+				d.setText("");
+				
+				cpg.setTitle("Avaliação " + nome + " - Questão " + ++qs);
 			}
 		});
 
@@ -51,11 +58,19 @@ public class CriarProva {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				ArrayList<String> questoes = new ArrayList<>();
+				questoes.add(enunciado.getText().replace("\n", "<br>"));
+				questoes.add(a.getText());
+				questoes.add(b.getText());
+				questoes.add(c.getText());
+				questoes.add(d.getText());
+
+				prova.add(questoes);
+				
 				BufferedWriter out = null;
 
 				try {
-					String fileName = "prova.txt";
-					out = new BufferedWriter(new FileWriter(fileName));
+					out = new BufferedWriter(new FileWriter(nome + ".txt"));
 
 					for (ArrayList<String> q : prova) {
 						for (int i = 0; i < 5; i++) {
@@ -70,6 +85,7 @@ public class CriarProva {
 					e1.printStackTrace();
 				}
 				
+				JOptionPane.showMessageDialog(null, "Avaliação salva em " + nome + ".txt", nome, JOptionPane.INFORMATION_MESSAGE);
 				cpg.dispatchEvent(new WindowEvent(cpg, WindowEvent.WINDOW_CLOSING));
 			}
 		});
