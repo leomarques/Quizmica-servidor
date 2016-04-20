@@ -70,8 +70,8 @@ public class ClientListener extends Thread {
 
 					mServerDispatcher.addClient(mClientInfo);
 
-					textArea.append("Usuário " + mClientInfo + " conectou, " + mServerDispatcher.getClientCount()
-							+ " usuário(s) online.\n");
+					textArea.append(">> Usuário " + mClientInfo + " conectou, " + mServerDispatcher.getClientCount()
+							+ " usuário(s) online. <<\n");
 
 					mClientInfo.mClientSender.sendMessage("in");
 				}
@@ -85,7 +85,7 @@ public class ClientListener extends Thread {
 		mClientInfo.mClientSender.interrupt();
 		if (mClientInfo.nome != null) {
 			mServerDispatcher.deleteClient(mClientInfo);
-			textArea.append(mClientInfo + " desconectou\n");
+			textArea.append(">> " + mClientInfo + " desconectou <<\n");
 			textArea.append(mServerDispatcher.getClientCount() + " usuário(s) online.\n");
 		}
 	}
