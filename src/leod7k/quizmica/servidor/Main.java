@@ -16,8 +16,8 @@ public class Main {
 	public static void main(String[] args) {
 
 		ServerGUI serverGUI = new ServerGUI();
-		//@SuppressWarnings("unused")
-		//AberturaGUI aberturaGUI = new AberturaGUI();
+		@SuppressWarnings("unused")
+		AberturaGUI aberturaGUI = new AberturaGUI();
 		JTextArea textArea = serverGUI.getTextArea();
 		JButton btnAbrir = serverGUI.getBtnAbrir();
 		JButton btnComecar = serverGUI.getBtnComecar();
